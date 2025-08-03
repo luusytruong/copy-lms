@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+    <g>
+        <g
+            style="fill: none; stroke: #474747; stroke-linecap: round; stroke-linejoin: round; stroke-miterlimit: 10; stroke-width: 15;">
+            <path
+                d="m132.288 81.932 14.235 49.926-102.279 29.162-29.163-102.279 88.45-25.22"></path>
+            <path d="m59.164 109.142 22.233 12.368 50.927-91.55"></path>
+        </g>
+        <g
+            style="fill: none; stroke: #474747; stroke-linecap: round; stroke-linejoin: round; stroke-miterlimit: 10; stroke-width: 15;">
+            <path
+                d="m178.198 242.947 14.235 49.925-102.28 29.163-29.162-102.28 88.45-25.219"></path>
+            <path d="m105.073 270.157 22.234 12.368 50.926-91.551"></path>
+        </g>
+        <g>
+            <path
+                d="m186.204 358.158-79.304 22.612 29.163 102.279 102.279-29.162-8.695-30.495"
+                style="fill: none; stroke: #474747; stroke-linecap: round; stroke-linejoin: round; stroke-miterlimit: 10; stroke-width: 15;"></path>
+        </g>
+        <g
+            style="fill: none; stroke: #474747; stroke-linecap: round; stroke-linejoin: round; stroke-miterlimit: 10; stroke-width: 15;">
+            <path
+                d="m495.835 232.872-184.457 130.038-128.981 46.308 84.017-110.564 219.647-153.702"></path>
+            <path
+                d="m266.414 298.654 33.035 2.04-13.06 32.044 36.592-2.453-11.603 32.625"></path>
+            <path d="m286.389 332.738 209.666-143.459"></path>
+            <path d="m220.301 362.91s14.708 8.309 18.041 26.223"></path>
+        </g>
+    </g>
+</svg>

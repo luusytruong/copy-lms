@@ -1,26 +1,99 @@
 @import "tailwindcss";
 
+@font-face {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url("/fonts/Inter-Regular.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url("/fonts/Inter-SemiBold.woff2") format("woff2");
+}
+
+* {
+    overscroll-behavior: none;
+    --webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: #d3d5d6 transparent;
+    font-family: var(--font-roboto), "Inter", system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    transition: all 0.24s, margin 0, outline 0, font-size 0;
+    list-style: none;
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+*:focus {
+    outline-color: #0081ff;
+    /* outline-offset: 2px;
+    outline-style: solid;
+    outline-width: 2px; */
+}
+
+*::-webkit-scrollbar {
+    display: none;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+    --background: #ffffff;
+    --foreground: #3e4043;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+    --dark-900: #1f2023;
+    --dark-800: #27282b;
+    --dark-700: #2e3033;
+    --dark-600: #36383b;
+    --dark-500: #3e4043;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+    color: #444;
+    height: 100svh;
+}
+
+button {
+    cursor: pointer;
+}
+
+[type="number"]::-webkit-outer-spin-button,
+[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input {
+    accent-color: #0081ff;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+    transition: background-color 9999s ease-in-out 0s;
+    -webkit-text-fill-color: #000 !important;
+    background-color: transparent !important;
+    box-shadow: 0 0 0px 1000px white inset !important;
+}
+
+.go2072408551 {
+    background-color: #000 !important;
+    color: #eee !important;
+}
+
+#nprogress {
+    pointer-events: none;
+}
+
+#nprogress .bar {
+    background: #0081ff !important;
+    height: 3px !important;
+}
+
+#nprogress .peg {
+    box-shadow: 0 0 10px #0081ff, 0 0 5px #0081ff !important;
 }

@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import ProgressBar from "@/components/common/ProgressBar";
+import { Roboto } from "next/font/google";
+import { cn } from "@/utils/utils";
+import Sidebar from "@/components/ui/Sidebar";
+import ClientContext from "@/context/ClientContext";
+import { Toaster } from "react-hot-toast";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const roboto = Roboto({
+  variable: "--font-roboto",
   subsets: ["latin"],
 });
 
@@ -24,10 +24,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className={cn("antialiased bg-white", roboto.variable)}>
+        <ClientContext>
+          <ProgressBar />
+          <Toaster
+            position="bottom-left"
+            gutter={16}
+            toastOptions={{ duration: 6000 }}
+          />
+          <main className="flex min-h-screen w-screen">
+            <Sidebar />
+            {children}
+          </main>
+        </ClientContext>
       </body>
     </html>
   );

@@ -1,0 +1,41 @@
+[
+    {
+      "nav": [{ "text": "Bảng xếp hạng LMS", "icon": "custom-status-up" }]
+    },
+    {
+      "label": "Học tập",
+      "nav": [
+        {
+          "text": "Công nghệ ASP.NET",
+          "href": "/dashboard/aspnet",
+          "icon": "custom-globe"
+        },
+        {
+          "text": "Phương pháp luận lập trình",
+          "href": "/dashboard/ppllt",
+          "icon": "custom-box-1"
+        },
+        {
+          "text": "Kiến trúc và thiết kế phần mềm",
+          "href": "/dashboard/ktvtkpm",
+          "icon": "custom-document-text"
+        },
+        {
+          "text": "Vận hành bảo trì phần mềm",
+          "href": "/dashboard/vhvbtpm",
+          "icon": "custom-layer"
+        },
+    },
+    {
+      "label": "Hệ thống",
+      "nav": [
+        { "text": "Cài đặt", "icon": "custom-setting-2" },
+        { "text": "Hồ sơ của bạn", "icon": "custom-user-square" },
+        {
+          "text": "Đăng xuất",
+          "icon": "right-from-bracket",
+          "onClick": handleLogout
+        }
+      ]
+    }
+  ]
