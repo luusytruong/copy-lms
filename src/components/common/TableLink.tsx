@@ -1,8 +1,9 @@
-"use client";
+import React, { ComponentType, LinkHTMLAttributes, ReactNode } from "react";
+import LinkNProgress from "./LinkNProgress";
 import { cn } from "@/utils/utils";
-import { ComponentType, ButtonHTMLAttributes } from "react";
-import { motion } from "framer-motion";
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+
+interface TableLinkProps extends LinkHTMLAttributes<HTMLLinkElement> {
+  href?: string;
   text?: string;
   icon?: ComponentType<{
     className?: string;
@@ -15,7 +16,8 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   strokeWidth?: number;
 }
 
-const Button = ({
+const TableLink = ({
+  href,
   text,
   icon: Icon,
   className,
@@ -25,17 +27,15 @@ const Button = ({
   iconClassName,
   textClassName,
   ...props
-}: ButtonProps) => {
+}: TableLinkProps) => {
   return (
-    <button
+    <LinkNProgress
+      href={href || "#"}
       className={cn(
         "flex items-center gap-2 active:scale-95 transition-all duration-100",
         className
       )}
-      onClick={onClick}
-      {...props}
     >
-      {props.children}
       {Icon && (
         <Icon
           className={cn("", iconClassName)}
@@ -44,8 +44,8 @@ const Button = ({
         />
       )}
       {text && <span className={cn("", textClassName)}>{text}</span>}
-    </button>
+    </LinkNProgress>
   );
 };
 
-export default Button;
+export default TableLink;

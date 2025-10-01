@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, useEffect } from "react";
 import Button from "../common/Button";
 import Input from "../common/Input";
 import Image from "next/image";
@@ -10,10 +10,11 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { useUser } from "@/context/UserContext";
 import { Key } from "lucide-react";
+import instance from "@/lib/axios";
 
 const Login = () => {
   const router = useRouter();
-  const { setUser } = useUser();
+  const { user, setUser } = useUser();
   const [loading, setLoading] = useState(false);
   const [account, setAccount] = useState({
     username: "",
@@ -27,26 +28,30 @@ const Login = () => {
     });
   };
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    fetch("/api/auth", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(account),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setLoading(false);
-        if (data?.user?.name) {
-          setUser(data?.user);
-          nProgress.start();
-          router.push("/dashboard");
-        } else toast.error(data?.message || "Unknown error");
+    try {
+      const { data } = await instance.post("/auth/login", {
+        email: account.username,
+        password: account.password,
       });
+      if (data?.status) {
+        setUser(account);
+        nProgress.start();
+        router.push("/dashboard");
+        toast.success(data?.message || "Đăng nhập thành công");
+      } else toast.error(data?.message || "any error");
+    } catch (error) {
+      toast.error("Lỗi kết nối đến server");
+    } finally {
+      setLoading(false);
+    }
   };
+
+  useEffect(() => {
+    if (user.username) router.push("/dashboard");
+  }, [user]);
 
   return (
     <div className="relative flex flex-1 max-h-svh">

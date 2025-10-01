@@ -5,11 +5,11 @@ import Button from "../common/Button";
 import { useSidebar } from "@/context/SidebarContext";
 import Image from "next/image";
 
-const Dashboard = () => {
+const Header = ({ text }: { text: string }) => {
   const { setIsOpen } = useSidebar();
 
   return (
-    <div className="flex flex-col flex-1">
+    <div className="flex flex-col">
       <div className="h-16 px-3 flex items-center gap-6 bg-[#f8f9fa]">
         <Button
           icon={AlignLeft}
@@ -19,9 +19,7 @@ const Dashboard = () => {
           iconClassName="text-gray-500"
           onClick={() => setIsOpen((prev) => !prev)}
         />
-        <p className="text-lg font-extrabold uppercase">
-          Kiến trúc và thiết kế phần mềm
-        </p>
+        <p className="text-lg font-extrabold uppercase">{text}</p>
       </div>
       <div className="flex flex-col items-stretch">
         <div className="relative">
@@ -34,10 +32,9 @@ const Dashboard = () => {
             className="object-contain !w-screen !h-auto"
           />
         </div>
-        <p>Dashboard</p>
       </div>
     </div>
   );
 };
 
-export default Dashboard;
+export default Header;

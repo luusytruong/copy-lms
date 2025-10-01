@@ -31,7 +31,7 @@ const SidebarItem = ({ text, icon, href, onClick }: SidebarItemProps) => {
               <use href={`/custom.svg#${icon || "custom-lock-outline"}`} />
             </svg>
           </span>
-          <span className="whitespace-nowrap line-clamp-1 text-ellipsis overflow-hidden">
+          <span className="whitespace-nowrap line-clamp-1 text-ellipsis">
             {text}
           </span>
         </LinkNProgress>
@@ -42,7 +42,7 @@ const SidebarItem = ({ text, icon, href, onClick }: SidebarItemProps) => {
               <use href={`/custom.svg#${icon || "custom-lock-outline"}`} />
             </svg>
           </span>
-          <span className="whitespace-nowrap line-clamp-1 text-ellipsis overflow-hidden">
+          <span className="whitespace-nowrap line-clamp-1 text-ellipsis">
             {text}
           </span>
         </Button>

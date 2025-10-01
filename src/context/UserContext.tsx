@@ -7,16 +7,13 @@ import {
   Dispatch,
   SetStateAction,
   useEffect,
-  useRef,
 } from "react";
-import { setCookie, getCookie, deleteCookie } from "@/utils/cookies";
 import { useRouter } from "next/navigation";
+import Loading from "@/components/common/Loading";
 
 interface User {
-  id: string;
-  name: string;
-  major: string;
-  course: string;
+  username: string;
+  password: string;
 }
 
 interface UserContextType {
@@ -31,47 +28,30 @@ export const UserProvider = ({
   children,
 }: Readonly<{ children: React.ReactNode }>) => {
   const router = useRouter();
-  const initialized = useRef(false);
-  const [user, setUser] = useState<User>({
-    id: "",
-    name: "",
-    major: "",
-    course: "",
+  const [user, setUser] = useState<User>(() => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("user");
+      return stored ? JSON.parse(stored) : { username: "", password: "" };
+    }
+    return { username: "", password: "" };
   });
 
   const handleLogout = () => {
     setUser({
-      id: "",
-      name: "",
-      major: "",
-      course: "",
+      username: "",
+      password: "",
     });
     router.replace("/");
   };
 
   useEffect(() => {
-    try {
-      const userCookie = getCookie("user");
-      if (userCookie?.id) {
-        setUser(userCookie);
-      } else {
-        throw new Error("Invalid user");
-      }
-    } catch {
-      deleteCookie("user");
+    if (!user.username) {
+      router.replace("/");
     }
   }, []);
 
   useEffect(() => {
-    if (!initialized.current) {
-      initialized.current = true;
-      return;
-    }
-    if (user?.id) {
-      setCookie("user", user);
-    } else {
-      deleteCookie("user");
-    }
+    localStorage.setItem("user", JSON.stringify(user));
   }, [user]);
 
   return (

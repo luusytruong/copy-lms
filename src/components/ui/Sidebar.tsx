@@ -8,16 +8,15 @@ import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/utils/utils";
 import { useSidebar } from "@/context/SidebarContext";
 import SidebarItem from "../common/SidebarItem";
-import { usePathname } from "next/navigation";
-// import icons from "@/utils/icons.json";
+import icons from "@/utils/icons.json";
 import { useUser } from "@/context/UserContext";
 
 const Sidebar = ({}) => {
-  const pathname = usePathname();
   const { user, handleLogout } = useUser();
   const { isOpen, setIsOpen } = useSidebar();
   const [ishow, setIshow] = useState(false);
   const initialized = useRef(false);
+  const [isMounted, setIsMounted] = useState(false);
   const collapseItems = [
     { name: "Tài khoản", icon: User, onClick: undefined },
     { name: "Cài đặt", icon: Settings, onClick: undefined },
@@ -25,43 +24,57 @@ const Sidebar = ({}) => {
   ];
   const data = [
     {
-      nav: [{ text: "Bảng xếp hạng LMS", icon: "custom-status-up" }],
+      nav: [
+        {
+          text: "Bảng xếp hạng LMS",
+          icon: "custom-status-up",
+          href: "/dashboard",
+        },
+      ],
     },
     {
       label: "Học tập",
       nav: [
-        // {
-        //   text: "Công nghệ ASP.NET",
-        //   href: "/dashboard/aspnet",
-        //   icon: "custom-globe",
-        // },
         {
-          text: "Phương pháp luận lập trình",
-          href: "/dashboard/ppllt",
-          icon: "custom-box-1",
+          text: "Quản lý sinh viên",
+          href: "/dashboard/student",
+          icon: "custom-element-plus",
         },
         {
-          text: "Kiến trúc và thiết kế phần mềm",
-          href: "/dashboard/ktvtkpm",
-          icon: "custom-document-text",
+          text: "Quản lý giảng viên",
+          href: "/dashboard/lecturer",
+          icon: "custom-element-plus",
         },
         {
-          text: "Vận hành bảo trì phần mềm",
-          href: "/dashboard/vhvbtpm",
-          icon: "custom-layer",
+          text: "Quản lý môn học",
+          href: "/dashboard/subject",
+          icon: "custom-element-plus",
         },
-        // {
-        //   text: "Lập trình thiết bị di động",
-        //   href: "/dashboard/android",
-        //   icon: "custom-android",
-        // },
+        {
+          text: "Quản lý điểm số",
+          href: "/dashboard/grade",
+          icon: "custom-element-plus",
+        },
       ],
     },
     {
       label: "Hệ thống",
       nav: [
-        { text: "Cài đặt", icon: "custom-setting-2" },
-        { text: "Hồ sơ của bạn", icon: "custom-user-square" },
+        {
+          text: "Nhật ký hệ thống",
+          href: "/dashboard/logs",
+          icon: "custom-layer",
+        },
+        {
+          text: "Cài đặt",
+          href: "/dashboard/settings",
+          icon: "custom-setting-2",
+        },
+        {
+          text: "Hồ sơ của bạn",
+          href: "/dashboard/profile",
+          icon: "custom-user-square",
+        },
         {
           text: "Đăng xuất",
           icon: "right-from-bracket",
@@ -72,13 +85,12 @@ const Sidebar = ({}) => {
   ];
 
   useEffect(() => {
+    setIsMounted(true);
     if (!initialized.current) {
       initialized.current = true;
       return;
     }
   }, []);
-
-  if (pathname === "/") return null;
 
   return (
     <AnimatePresence>
@@ -100,7 +112,7 @@ const Sidebar = ({}) => {
           animate={{ marginLeft: 0 }}
           initial={initialized.current ? { marginLeft: -280 } : undefined}
           transition={{ duration: 0.32, ease: "easeInOut" }}
-          className="fixed inset-y-0 md:relative z-50 w-[280px] h-svh bg-[#f8f9fa] border-r border-gray-300 border-dashed flex flex-col items-stretch"
+          className="fixed inset-y-0 z-50 md:relative h-svh min-w-[280px] bg-[#f8f9fa] border-r border-gray-300 border-dashed flex flex-col items-stretch"
         >
           <div className="flex items-center gap-2.5 h-[90px] px-6">
             <div className="p-2.5 bg-white rounded-xl">
@@ -136,10 +148,16 @@ const Sidebar = ({}) => {
                   />
                   <div className="flex flex-col flex-1 gap-0.5 justify-center max-w-[120px]">
                     <p className="text-sm font-bold whitespace-nowrap text-ellipsis line-clamp-1">
-                      {user?.name || "Loading..."}
+                      {isMounted
+                        ? user?.username || "Loading..."
+                        : "Loading..."}
                     </p>
                     <p className="text-[13px] text-[#777777] uppercase font-bold">
-                      {user?.id || "Loading..."}
+                      {isMounted
+                        ? user?.username
+                          ? "Admin"
+                          : "Loading..."
+                        : "Loading..."}
                     </p>
                   </div>
                   <div className="flex items-center justify-end ml-1">

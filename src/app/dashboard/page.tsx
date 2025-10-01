@@ -1,7 +1,11 @@
-import Dashboard from "@/components/features/Dashboard";
+import Header from "@/components/features/Header";
 
 const Page = () => {
-  return <Dashboard />;
+  return (
+    <>
+      <Header text="Bảng tin Close AI" />
+    </>
+  );
 };
 
 export default Page;

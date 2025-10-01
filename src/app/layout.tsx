@@ -32,10 +32,7 @@ export default function RootLayout({
             gutter={16}
             toastOptions={{ duration: 6000 }}
           />
-          <main className="flex min-h-screen w-screen">
-            <Sidebar />
-            {children}
-          </main>
+          <main className="flex w-screen h-svh">{children}</main>
         </ClientContext>
       </body>
     </html>

@@ -33,7 +33,7 @@ const Input = ({
   return (
     <div className={cn("flex flex-col gap-2 items-stretch", className)}>
       {text && (
-        <label htmlFor={name} className="text-sm font-medium">
+        <label htmlFor={name} className="font-medium">
           {text}
           {required && <span className="text-red-500">*</span>}
         </label>
