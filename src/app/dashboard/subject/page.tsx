@@ -10,7 +10,7 @@ import useSWR from "swr";
 const Page = () => {
   const { data, error, isLoading, mutate } = useSWR("/api/subject");
   const [searchText, setSearchText] = useState("");
-  const head = ["credit", "subjectName", "teacherName"];
+  const head = ["credit", "subjectName", "teacher"];
   const [showModalId, setShowModalId] = useState(0);
   const [searchData, setSearchData] = useState<any>(null);
 
@@ -65,7 +65,7 @@ const Page = () => {
       ) : (
         <Table
           head={head}
-          data={searchData || data}
+          data={searchData?.content || data?.content}
           setShowModalId={setShowModalId}
           href={"subject"}
         />

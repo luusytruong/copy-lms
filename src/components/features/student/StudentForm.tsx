@@ -2,8 +2,11 @@
 
 import Button from "@/components/common/Button";
 import Input from "@/components/common/Input";
+import Select from "@/components/common/Select";
+import Table from "@/components/ui/Table";
 import { Save } from "lucide-react";
 import React, { ChangeEvent } from "react";
+import useSWR from "swr";
 
 const StudentForm = ({
   student,
@@ -16,6 +19,11 @@ const StudentForm = ({
   setStudent: React.Dispatch<React.SetStateAction<any>>;
   onSave: (e: React.FormEvent) => void;
 }) => {
+  const { data: classes, isLoading: isLoadingClasses } =
+    useSWR("/api/classroom");
+  const { data: grades, isLoading: isLoadingGrades } = useSWR(
+    "/api/grade/student/" + student?.id
+  );
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setStudent((prev: any) => ({ ...prev, [name]: value }));
@@ -32,7 +40,7 @@ const StudentForm = ({
           {error?.message || "Lỗi không xác định"}
         </div>
       )}
-      <div className="h-full overflow-auto">
+      <div className="h-full overflow-auto mt-4">
         <form
           action="#"
           className="grid gap-4 md:grid-cols-2 p-4"
@@ -68,12 +76,19 @@ const StudentForm = ({
             </select>
           </div>
           <Input
-            name="age"
-            type="number"
-            value={student?.age || ""}
+            name="yearofbirth"
+            type="date"
+            value={student?.yearofbirth || ""}
             required
-            text="Tuổi"
+            text="Ngày sinh"
             onChange={handleChange}
+          />
+          <Select
+            data={classes?.content || []}
+            name="classRoomId"
+            value={student?.classRoomId || student?.classRoom?.id}
+            label="Lớp học"
+            onChange={handleSelectChange}
           />
           <Input
             name="email"
@@ -91,28 +106,21 @@ const StudentForm = ({
             text="Số điện thoại"
             onChange={handleChange}
           />
-          <Input
-            name="major"
-            type="text"
-            value={student?.major || ""}
-            required
-            text="Ngành học"
-            onChange={handleChange}
-          />
-          <Input
-            name="gpa"
-            type="number"
-            value={student?.gpa || ""}
-            required
-            text="GPA"
-            onChange={handleChange}
-          />
-          <div className="flex justify-end items-end md:col-span-2">
+          <div className="flex justify-end items-end">
             <Button
               icon={Save}
               text="Lưu"
               type="submit"
               className="p-2.5 bg-[#0081ff] text-white rounded-lg"
+            />
+          </div>
+          <div className="col-span-2 -mx-4">
+            <Table
+              head={["subjectName", "score"]}
+              data={grades?.data || []}
+              setShowModalId={undefined}
+              href={"grade"}
+              showBtnDelete={false}
             />
           </div>
         </form>

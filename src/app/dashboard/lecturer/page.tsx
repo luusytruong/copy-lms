@@ -65,7 +65,7 @@ const Page = () => {
       ) : (
         <Table
           head={head}
-          data={searchData || data}
+          data={searchData?.content || data?.content}
           setShowModalId={setShowModalId}
           href={"lecturer"}
         />

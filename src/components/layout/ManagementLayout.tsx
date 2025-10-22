@@ -3,7 +3,7 @@ import Loading from "../common/Loading";
 import Header from "../features/Header";
 import Input from "../common/Input";
 import Button from "../common/Button";
-import { Plus, Search } from "lucide-react";
+import { ListPlus, Search } from "lucide-react";
 import Modal from "../ui/Modal";
 import TableLink from "../common/TableLink";
 
@@ -40,32 +40,32 @@ const ManagementLayout = ({
       <Header text={text} />
       <Modal isShow={!!showModalId} close={() => setShowModalId(0)}>
         <h1 className="font-semibold">{modelText}</h1>
-        <div className="flex gap-4 justify-end mt-4">
+        <div className="flex gap-4 justify-center mt-4">
           <Button
             text="Huỷ"
-            className="bg-gray-100 px-4.5 py-1.5 rounded-full hover:bg-[#0081ff] hover:text-white"
+            className="bg-gray-100 px-4.5 py-1.5 rounded-full hover:bg-gray-200"
             autoFocus
             onClick={() => setShowModalId(0)}
           />
           <Button
             text="Xoá"
-            className="bg-gray-100 px-4.5 py-1.5 rounded-full hover:bg-red-600 hover:text-white"
+            className="bg-[#0081ff] px-4.5 py-1.5 rounded-full hover:bg-[#0071ff] text-white"
             onClick={() => onDelete(showModalId)}
           />
         </div>
       </Modal>
       {error && (
-        <div className="bg-red-100 text-red-600 p-4 rounded-md mx-4 mt-4">
+        <div className="bg-red-100 text-red-600 p-4 rounded-md m-4">
           {error?.message || "Lỗi không xác định"}
         </div>
       )}
-      <div className="flex p-4 pb-0 gap-4 justify-end md:justify-between">
+      <div className="flex p-4 gap-4 justify-end md:justify-between bg-[#ecf1f9]">
         <TableLink
           href={href || "#"}
-          icon={Plus}
+          icon={ListPlus}
           text="Thêm mới"
-          textClassName="hidden md:inline-block"
-          className="fixed bottom-4 right-4 md:bottom-0 md:right-0 w-10 md:w-auto aspect-square md:aspect-auto justify-center md:relative bg-[#f3f5f7] rounded-full md:rounded-lg md:px-4 hover:bg-[#0081ff] hover:text-white"
+          textClassName="hidden md:inline-block font-medium"
+          className="fixed bottom-4 right-4 md:bottom-0 md:right-0 w-10 md:w-auto aspect-square md:aspect-auto justify-center md:relative bg-white rounded-full md:rounded-lg md:px-4 hover:bg-[#0081ff] hover:text-white"
         />
         <form
           action="#"
@@ -75,7 +75,7 @@ const ManagementLayout = ({
           <Input
             placeholder="Nhập từ khoá"
             className="lg:w-[280px] w-full"
-            classInputName="!p-2"
+            classInputName="!p-2 bg-white"
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
           />
@@ -83,7 +83,7 @@ const ManagementLayout = ({
             icon={Search}
             text="Tìm kiếm"
             type="submit"
-            className="bg-[#f3f5f7] text-nowrap px-4 justify-center rounded-lg hover:bg-[#0081ff] hover:text-white"
+            className="bg-white font-medium text-nowrap px-4 justify-center rounded-lg hover:bg-[#0081ff] hover:text-white"
           />
         </form>
       </div>

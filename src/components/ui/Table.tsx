@@ -2,17 +2,20 @@ import React from "react";
 import Button from "../common/Button";
 import { Info, Trash } from "lucide-react";
 import TableLink from "../common/TableLink";
+import dayjs from "dayjs";
 
 const Table = ({
   head,
   href,
   data,
   setShowModalId,
+  showBtnDelete = true,
 }: {
   href: string;
   head: string[];
   data: any;
-  setShowModalId: React.Dispatch<React.SetStateAction<number>>;
+  showBtnDelete?: boolean;
+  setShowModalId?: React.Dispatch<React.SetStateAction<number>>;
 }) => {
   return (
     <table className="table-auto w-full border-collapse text-[15px]">
@@ -27,15 +30,19 @@ const Table = ({
         </tr>
       </thead>
       <tbody>
-        {Array.isArray(data?.content) &&
-          data?.content.map((item: any) => (
+        {Array.isArray(data) &&
+          data?.map((item: any) => (
             <tr
-              key={item.id}
+              key={item?.id}
               className="group hover:bg-[#f8f9fa] border-b border-gray-100"
             >
               {head.map((h) => (
                 <td key={h} className="py-2.5 px-4 text-nowrap">
-                  {item[h]}
+                  {h === "yearofbirth"
+                    ? dayjs(item?.[h]).format("DD/MM/YYYY")
+                    : typeof item[h] === "object"
+                    ? item[h]?.name
+                    : item[h]}
                 </td>
               ))}
               <td className="py-2.5 px-4">
@@ -45,11 +52,13 @@ const Table = ({
                     icon={Info}
                     className="bg-[#f8f9fa] group-hover:bg-[#EEEFF0] hover:bg-blue-400 hover:text-white p-2.5 rounded-lg"
                   />
-                  <Button
-                    icon={Trash}
-                    onClick={() => setShowModalId(item.id)}
-                    className="bg-[#f8f9fa] group-hover:bg-[#EEEFF0] hover:bg-red-500 hover:text-white p-2.5 rounded-lg"
-                  />
+                  {showBtnDelete && (
+                    <Button
+                      icon={Trash}
+                      onClick={() => setShowModalId?.(item.id)}
+                      className="bg-[#f8f9fa] group-hover:bg-[#EEEFF0] hover:bg-red-500 hover:text-white p-2.5 rounded-lg"
+                    />
+                  )}
                 </div>
               </td>
             </tr>

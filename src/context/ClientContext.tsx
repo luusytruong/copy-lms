@@ -15,7 +15,7 @@ export const ClientContext = ({
         value={{
           fetcher,
           // refreshInterval: 10000,
-          revalidateOnReconnect: true,
+          // revalidateOnReconnect: true,
           // revalidateOnFocus: true,
         }}
       >

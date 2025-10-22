@@ -46,6 +46,11 @@ const Sidebar = ({}) => {
           icon: "custom-element-plus",
         },
         {
+          text: "Quản lý lớp học",
+          href: "/dashboard/classroom",
+          icon: "custom-element-plus",
+        },
+        {
           text: "Quản lý môn học",
           href: "/dashboard/subject",
           icon: "custom-element-plus",
@@ -129,7 +134,7 @@ const Sidebar = ({}) => {
                 V1.0.00
               </p>
               <p className="text-[12px] font-bold text-[#212529bf]">
-                truongdev.site
+                lms.open.ai
               </p>
             </div>
           </div>

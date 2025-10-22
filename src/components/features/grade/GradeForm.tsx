@@ -3,6 +3,7 @@
 import Button from "@/components/common/Button";
 import Input from "@/components/common/Input";
 import Loading from "@/components/common/Loading";
+import Select from "@/components/common/Select";
 import { Save } from "lucide-react";
 import React, { ChangeEvent } from "react";
 import useSWR from "swr";
@@ -39,7 +40,7 @@ const GradeForm = ({
           {error?.message || "Lỗi không xác định"}
         </div>
       )}
-      <div className="h-full overflow-auto">
+      <div className="h-full overflow-auto mt-4">
         <form
           action="#"
           className="grid gap-4 md:grid-cols-2 p-4"
@@ -53,45 +54,21 @@ const GradeForm = ({
             text="Số điểm"
             onChange={handleChange}
           />
-          <div className="flex flex-col gap-2 items-stretch">
-            <span className="font-medium">
-              Môn học
-              <span className="text-red-600">*</span>
-            </span>
-            <select
-              name="subjectId"
-              value={grade?.subjectId || ""}
-              onChange={handleSelectChange}
-              className="p-2.5 border border-gray-200 rounded-md w-full"
-            >
-              {subjects?.content?.map((item: any) => (
-                <option key={item.id} value={item.id}>
-                  {item.subjectName}
-                </option>
-              ))}
-              <option value="">----</option>
-            </select>
-          </div>
-          <div className="flex flex-col gap-2 items-stretch">
-            <span className="font-medium">
-              Sinh viên
-              <span className="text-red-600">*</span>
-            </span>
-            <select
-              name="studentId"
-              value={grade?.studentId || ""}
-              onChange={handleSelectChange}
-              className="p-2.5 border border-gray-200 rounded-md w-full"
-            >
-              {students?.content?.map((item: any) => (
-                <option key={item.id} value={item.id}>
-                  {item.name}
-                </option>
-              ))}
-              <option value="">----</option>
-            </select>
-          </div>
-          <div className="flex justify-end items-end md:col-span-2">
+          <Select
+            data={students?.content}
+            name="studentId"
+            value={grade?.studentId || grade?.student?.id}
+            onChange={handleSelectChange}
+            label="Sinh viên"
+          />
+          <Select
+            data={subjects?.content}
+            name="subjectId"
+            value={grade?.subjectId || grade?.subject?.id}
+            onChange={handleSelectChange}
+            label="Môn học"
+          />
+          <div className="flex justify-end items-end">
             <Button
               icon={Save}
               text="Lưu"

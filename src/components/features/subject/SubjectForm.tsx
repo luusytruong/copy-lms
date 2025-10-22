@@ -3,6 +3,7 @@
 import Button from "@/components/common/Button";
 import Input from "@/components/common/Input";
 import Loading from "@/components/common/Loading";
+import Select from "@/components/common/Select";
 import { Save } from "lucide-react";
 import React, { ChangeEvent } from "react";
 import useSWR from "swr";
@@ -36,7 +37,7 @@ const SubjectForm = ({
           {error?.message || "Lỗi không xác định"}
         </div>
       )}
-      <div className="h-full overflow-auto">
+      <div className="h-full overflow-auto mt-4">
         <form
           action="#"
           className="grid gap-4 md:grid-cols-2 p-4"
@@ -58,23 +59,14 @@ const SubjectForm = ({
             text="Tên môn học"
             onChange={handleChange}
           />
-          <div className="flex flex-col gap-2 items-stretch">
-            <span className="font-medium">Giáo viên</span>
-            <select
-              name="teacherId"
-              value={subject?.teacherId || ""}
-              onChange={handleSelectChange}
-              className="p-2.5 border border-gray-200 rounded-md w-full"
-            >
-              {data?.content?.map((teacher: any) => (
-                <option key={teacher.id} value={teacher.id}>
-                  {teacher.name}
-                </option>
-              ))}
-              <option value="">----</option>
-            </select>
-          </div>
-          <div className="flex justify-end items-end md:col-span-2">
+          <Select
+            data={data?.content}
+            name="teacherId"
+            value={subject?.teacherId || subject?.teacher?.id}
+            onChange={handleSelectChange}
+            label="Giáo viên"
+          />
+          <div className="flex justify-end items-end">
             <Button
               icon={Save}
               text="Lưu"

@@ -2,6 +2,8 @@
 
 import Button from "@/components/common/Button";
 import Input from "@/components/common/Input";
+import LinkNProgress from "@/components/common/LinkNProgress";
+import ListLink from "@/components/common/ListLink";
 import { Save } from "lucide-react";
 import React, { ChangeEvent } from "react";
 
@@ -32,7 +34,7 @@ const LecturerForm = ({
           {error?.message || "Lỗi không xác định"}
         </div>
       )}
-      <div className="h-full overflow-auto">
+      <div className="h-full overflow-auto mt-4">
         <form
           action="#"
           className="grid gap-4 md:grid-cols-2 p-4"
@@ -70,20 +72,16 @@ const LecturerForm = ({
             text="Số điện thoại"
             onChange={handleChange}
           />
-          <div className="flex flex-col gap-2 items-stretch md:col-span-2">
-            <span className="font-medium">Môn học</span>
-            <div className="p-2.5 min-h-10 border border-gray-200 rounded-md w-full flex flex-wrap gap-2">
-              {teacher.subjects?.length > 0 ? (
-                teacher.subjects?.map((sub: string) => (
-                  <p key={sub} className="p-2 bg-[#f3f5f7] rounded-lg">
-                    {sub}
-                  </p>
-                ))
-              ) : (
-                <p className="p-2 bg-[#f3f5f7] rounded-lg">Chưa có môn học</p>
-              )}
-            </div>
-          </div>
+          <ListLink
+            label="Môn học"
+            data={teacher?.subjects || []}
+            baseUrl="/dashboard/subject"
+          />
+          <ListLink
+            label="Lớp học"
+            data={teacher?.classroom || []}
+            baseUrl="/dashboard/classroom"
+          />
           <div className="flex justify-end items-end md:col-span-2">
             <Button
               icon={Save}

@@ -11,7 +11,9 @@ import { useRouter } from "next/navigation";
 
 const StudentDetail = ({ id }: { id: number }) => {
   const { data, error, isLoading } = useSWR(`/api/student/${id}`);
-  const [student, setStudent] = useState(data || {});
+  const [student, setStudent] = useState(
+    data ? { ...data, classRoomId: data.classRoom?.id } : { classRoomId: null }
+  );
   const router = useRouter();
 
   const handleSave = async (e: FormEvent) => {
@@ -29,7 +31,12 @@ const StudentDetail = ({ id }: { id: number }) => {
   };
 
   useEffect(() => {
-    if (data) setStudent(data);
+    if (data)
+      setStudent(
+        data
+          ? { ...data, classRoomId: data.classRoom?.id }
+          : { classRoomId: null }
+      );
   }, [data]);
 
   return (
