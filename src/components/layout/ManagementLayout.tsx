@@ -35,7 +35,7 @@ const ManagementLayout = ({
   children: ReactNode;
 }) => {
   return (
-    <div className="w-full flex flex-col">
+    <div className="flex-1 flex flex-col h-full">
       <Loading isShow={isLoading} />
       <Header text={text} />
       <Modal isShow={!!showModalId} close={() => setShowModalId(0)}>
